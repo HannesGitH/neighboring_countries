@@ -1,16 +1,16 @@
-import 'package:neighboring_countries/neighboring_countries.dart';
+import 'package:neighboring_countries/src/generate/crawler.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('A group of tests', () {
-    final awesome = Awesome();
+  group('test crawler', () {
+    // final awesome = Awesome();
 
     setUp(() {
       // Additional setup goes here.
     });
 
     test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
+      // expect(awesome.isAwesome, isTrue);
     });
   });
 }

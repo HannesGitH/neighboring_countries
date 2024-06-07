@@ -3,14 +3,14 @@ abstract class GraphNode {
   Set<GraphNode> get goesTo;
 }
 
-class Graph {
-  final Map<String, GraphNode> _nodes = {};
+class Graph<T extends GraphNode> {
+  final Map<String, T> _nodes = {};
 
-  void addNode(GraphNode node) {
+  void addNode(T node) {
     _nodes[node.id] = node;
   }
 
-  GraphNode? getNode(String id) {
+  T? getNode(String id) {
     return _nodes[id];
   }
 
@@ -24,4 +24,10 @@ class Graph {
 
     fromNode.goesTo.add(toNode);
   }
+}
+
+class ImmutableGraph<T extends GraphNode> {
+  final Map<String, T> nodes;
+
+  ImmutableGraph(this.nodes);
 }
