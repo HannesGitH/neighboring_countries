@@ -4,7 +4,7 @@ class Country implements GraphNode {
   static HasBorderType countsAsNeighborIfBorder = HasBorderType.either;
 
   final String name;
-  final Set<(Country, BorderType)> neighbors = {};
+  Set<(Country, BorderType)> neighbors = {};
 
   Country(this.name);
 
