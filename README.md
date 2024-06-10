@@ -11,8 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Wanna know which countries have which countries as their neighbors? This package gives you the results in the fastest way possible with dart.
 
 ## Features
 
