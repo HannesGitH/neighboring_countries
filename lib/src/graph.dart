@@ -27,7 +27,7 @@ class Graph<T extends GraphNode> {
 }
 
 class ImmutableGraph<T extends GraphNode> {
-  final Map<String, T> nodes;
+  final Set<T> nodes;
 
   ImmutableGraph(this.nodes);
 }

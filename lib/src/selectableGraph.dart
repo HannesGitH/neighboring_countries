@@ -7,8 +7,7 @@ class SelectableGraph<T extends GraphNode> extends ImmutableGraph<T> {
 
   final _neighborController = StreamController<T>.broadcast();
 
-  SelectableGraph(Map<String, T> nodes, [this.selectedNodes = const {}])
-      : super(nodes);
+  SelectableGraph(Set<T> nodes, [this.selectedNodes = const {}]) : super(nodes);
 
   Stream<T> get neighbors => _neighborController.stream;
 

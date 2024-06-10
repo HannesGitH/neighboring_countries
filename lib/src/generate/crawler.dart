@@ -19,8 +19,10 @@ class CountryCrawler {
     final table = document.querySelector(tableCSSSelector);
     Map<String, Country> countries = {};
     for (final row in table!.children) {
+      if (row.children.length < 4) continue;
       try {
         final countryName = row.children[0].text.trim();
+        if (!_isNameLegit(countryName)) continue;
         Country country =
             countries.putIfAbsent(countryName, () => Country(countryName));
         final neighbors = _parseNeighborsNameAndBorder(row.children[4]);
@@ -35,16 +37,24 @@ class CountryCrawler {
     return countries;
   }
 
+  _isNameLegit(String name) => name.length > 2 && !name.startsWith('(');
+  _makeNameLegit(String name) => name.replaceAll(RegExp(r'[^\w]+'), '');
+
   List<(String, BorderType)> _parseNeighborsNameAndBorder(Element column) {
     //unfortunately not every css selector (like :has()) is supported
     final countryRows =
         column.innerHtml.split('<br>').map((str) => parse('$str').body);
-    return countryRows.map((e) {
-      //leider gibt e.text Russia (M) zurück (statt nur '(M)')
-      final borderType = BorderTypeStr.fromString(e!.text.split(' ').last);
-      final name = e.children[1].text;
-      return (name, borderType);
-    }).toList();
+    return countryRows
+        .map((e) {
+          //leider gibt e.text Russia (M) zurück (statt nur '(M)')
+          final borderType = BorderTypeStr.fromString(e!.text.split(' ').last);
+
+          final name = e.children[1].text;
+          if (!_isNameLegit(name)) return null;
+          return (name, borderType);
+        })
+        .whereType<(String, BorderType)>()
+        .toList();
   }
 }
 

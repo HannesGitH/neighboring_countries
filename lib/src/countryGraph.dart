@@ -10,4 +10,4 @@ class CountryGraph extends SelectableGraph<Country> {
 }
 
 @GenerateCountryGraph()
-final CountryGraph countryGraph = _$countryGraph;
+final CountryGraph countryGraph = _$countryGraph();
