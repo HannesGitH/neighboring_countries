@@ -1,0 +1,3 @@
+class GenerateCountryGraph {
+  const GenerateCountryGraph();
+}

@@ -3,6 +3,7 @@ import 'package:source_gen/source_gen.dart';
 import 'package:build/build.dart';
 
 import '../country.dart';
+import 'annotation.dart';
 
 /// Generates a single-line comment for each class
 class CommentGenerator extends GeneratorForAnnotation<GenerateCountryGraph> {
@@ -44,10 +45,6 @@ class CommentGenerator extends GeneratorForAnnotation<GenerateCountryGraph> {
 
   String countryToVar(Country country) =>
       '_c_${country.name.replaceAll(RegExp(r'[^\w]+'), '')}';
-}
-
-class GenerateCountryGraph {
-  const GenerateCountryGraph();
 }
 
 final countryGraphBuilder =

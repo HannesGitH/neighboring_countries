@@ -1,7 +1,7 @@
 import 'package:neighboring_countries/src/selectableGraph.dart';
 
 import 'country.dart';
-import 'generate/generator.dart';
+import 'generate/annotation.dart';
 
 part 'countryGraph.g.dart';
 
