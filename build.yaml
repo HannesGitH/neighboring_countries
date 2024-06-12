@@ -3,7 +3,7 @@ builders:
     import: "package:neighboring_countries/src/generate/generator.dart"
     builder_factories: ["countryGraphFactory"]
     build_extensions: {".dart": [".mk_country_graph.g.part"]}
-    auto_apply: none
+    auto_apply: root_package
     build_to: cache
     # To copy the `.g.part` content into `.g.dart` in the source tree
     applies_builders: ["source_gen:combining_builder"]
