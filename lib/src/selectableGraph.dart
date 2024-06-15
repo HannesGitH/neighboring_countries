@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:neighboring_countries/src/graph.dart';
 
 class SelectableGraph<T extends GraphNode> extends ImmutableGraph<T> {
-  final Set<T> selectedNodes;
+  Set<T> _selectedNodes = {};
 
   final Map<T, (T, int)> _refCountedCurrentNeighbors = {};
 
@@ -11,12 +11,12 @@ class SelectableGraph<T extends GraphNode> extends ImmutableGraph<T> {
 
   Set<T> get currentNeighbors => _neighBorsOfCurrentSelection;
 
-  SelectableGraph(Set<T> nodes, [this.selectedNodes = const {}]) : super(nodes);
+  SelectableGraph(Set<T> nodes) : super(nodes);
 
   Stream<Set<T>> get neighbors => _neighborController.stream;
 
   void selectNode(T node) {
-    if (selectedNodes.add(node)) {
+    if (_selectedNodes.add(node)) {
       var potentiallyNewNeighbors = node.goesTo as Set<T>;
       for (T neighbor in potentiallyNewNeighbors) {
         var rcT = _refCountedCurrentNeighbors[neighbor] ?? (neighbor, 0);
@@ -27,7 +27,7 @@ class SelectableGraph<T extends GraphNode> extends ImmutableGraph<T> {
   }
 
   void unselectNode(T node) {
-    if (selectedNodes.remove(node)) {
+    if (_selectedNodes.remove(node)) {
       var potentiallyOldNeighbors = node.goesTo as Set<T>;
       for (T neighbor in potentiallyOldNeighbors) {
         var rcT = _refCountedCurrentNeighbors[neighbor]!;
@@ -41,16 +41,21 @@ class SelectableGraph<T extends GraphNode> extends ImmutableGraph<T> {
     }
   }
 
+  void clearSelection() {
+    _selectedNodes = {};
+    _refCountedCurrentNeighbors.clear();
+  }
+
   /// selected nodes are not neighbors of the group
   Set<T> get _neighBorsOfCurrentSelection =>
-      _refCountedCurrentNeighbors.keys.toSet().difference(selectedNodes);
+      _refCountedCurrentNeighbors.keys.toSet().difference(_selectedNodes);
 
   void _pushNeighbors() {
     _neighborController.add(_neighBorsOfCurrentSelection);
   }
 
   void toggleNode(T node) {
-    if (selectedNodes.contains(node)) {
+    if (_selectedNodes.contains(node)) {
       unselectNode(node);
     } else {
       selectNode(node);
