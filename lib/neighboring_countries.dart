@@ -4,3 +4,4 @@
 library;
 
 export 'src/countryGraph.dart';
+export 'src/country.dart';
